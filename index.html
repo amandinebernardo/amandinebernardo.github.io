@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,6 @@
     <title>Amandine Bernardo — Architecture & Design</title>
 
     <style>
-
         /* =====================================================
            BASE
         ===================================================== */
@@ -43,16 +42,19 @@
             text-decoration: none;
         }
 
+        button {
+            font: inherit;
+        }
+
 
         /* =====================================================
-           NAVIGATION
+           HEADER
         ===================================================== */
 
         header {
             position: fixed;
             top: 0;
             left: 0;
-
             width: 100%;
 
             padding: 24px 5vw;
@@ -87,7 +89,6 @@
         }
 
         nav a {
-            position: relative;
             transition: opacity 0.3s ease;
         }
 
@@ -101,7 +102,6 @@
         ===================================================== */
 
         .hero {
-
             min-height: 100vh;
 
             padding: 150px 5vw 80px;
@@ -109,8 +109,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-
-            position: relative;
         }
 
         .hero-content {
@@ -118,7 +116,6 @@
         }
 
         .hero-small {
-
             margin-bottom: 30px;
 
             font-size: 11px;
@@ -129,13 +126,9 @@
         }
 
         .hero h1 {
-
             font-size: clamp(65px, 10vw, 150px);
-
             font-weight: 400;
-
             line-height: 0.86;
-
             letter-spacing: -0.07em;
 
             color: #28231e;
@@ -146,7 +139,6 @@
         }
 
         .hero-bottom {
-
             margin-top: 55px;
 
             display: flex;
@@ -157,28 +149,22 @@
         }
 
         .hero-description {
-
             max-width: 430px;
 
             font-size: 15px;
-
             color: #5d564d;
         }
 
         .scroll {
-
             font-size: 11px;
-
             text-transform: uppercase;
-
             letter-spacing: 0.15em;
-
             color: #6d655b;
         }
 
 
         /* =====================================================
-           GENERAL SECTIONS
+           SECTIONS
         ===================================================== */
 
         section {
@@ -186,7 +172,6 @@
         }
 
         .section-title {
-
             display: flex;
             justify-content: space-between;
             align-items: baseline;
@@ -194,25 +179,19 @@
             margin-bottom: 65px;
 
             border-top: 1px solid rgba(90, 70, 50, 0.45);
-
             padding-top: 14px;
         }
 
         .section-title h2 {
-
             font-size: 12px;
-
             font-weight: 600;
 
             text-transform: uppercase;
-
             letter-spacing: 0.15em;
         }
 
         .section-title span {
-
             font-size: 11px;
-
             color: #776e64;
         }
 
@@ -222,7 +201,6 @@
         ===================================================== */
 
         #work {
-
             background: rgba(245, 241, 233, 0.76);
 
             backdrop-filter: blur(2px);
@@ -230,108 +208,267 @@
         }
 
         .projects {
-
             display: grid;
-
             grid-template-columns: repeat(2, 1fr);
-
             gap: 90px 35px;
         }
 
         .project {
-
-            cursor: pointer;
+            min-width: 0;
         }
 
-        .project-image {
 
+        /* =====================================================
+           GALLERY
+        ===================================================== */
+
+        .gallery {
+            position: relative;
             width: 100%;
 
             aspect-ratio: 4 / 3;
 
-            background:
+            margin-bottom: 18px;
 
+            border: 1px solid rgba(110, 90, 70, 0.22);
+
+            overflow: hidden;
+
+            background:
                 linear-gradient(
                     135deg,
                     rgba(170, 145, 110, 0.15),
                     rgba(255, 255, 255, 0.35)
                 );
+        }
 
-            border: 1px solid rgba(110, 90, 70, 0.22);
+        .gallery-viewport {
+            position: relative;
 
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
+            width: 100%;
+            height: 100%;
 
             overflow: hidden;
 
-            margin-bottom: 18px;
+            touch-action: pan-y;
 
-            transition:
-                transform 0.5s ease,
-                background 0.5s ease;
+            cursor: grab;
         }
 
-        .project:hover .project-image {
-
-            transform: scale(0.985);
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    rgba(170, 145, 110, 0.25),
-                    rgba(255, 255, 255, 0.45)
-                );
+        .gallery-viewport:active {
+            cursor: grabbing;
         }
 
-        .project-image span {
-
-            font-size: 10px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.15em;
-
-            color: #8a8074;
-        }
-
-        .project-info {
+        .gallery-placeholder {
+            position: absolute;
+            inset: 0;
 
             display: flex;
+            align-items: center;
+            justify-content: center;
 
+            padding: 25px;
+
+            text-align: center;
+
+            color: #8a8074;
+
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .gallery-image {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.4s ease,
+                transform 0.5s ease;
+        }
+
+        .gallery-image.is-visible {
+            opacity: 1;
+        }
+
+        .gallery:hover .gallery-image.is-visible {
+            transform: scale(0.985);
+        }
+
+
+        /* ARROWS */
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+
+            background: rgba(45, 43, 39, 0.45);
+            color: #f7f2e9;
+
+            font-size: 20px;
+            line-height: 1;
+
+            transform: translateY(-50%);
+
+            opacity: 0;
+            pointer-events: none;
+
+            cursor: pointer;
+
+            z-index: 5;
+
+            transition:
+                opacity 0.25s ease,
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .gallery:hover .gallery-arrow {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(45, 43, 39, 0.72);
+        }
+
+        .gallery-arrow:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+
+        .gallery-arrow.prev {
+            left: 18px;
+        }
+
+        .gallery-arrow.next {
+            right: 18px;
+        }
+
+
+        /* COUNTER */
+
+        .gallery-counter {
+            position: absolute;
+            right: 18px;
+            bottom: 16px;
+
+            min-width: 52px;
+            padding: 7px 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.55);
+
+            background: rgba(45, 43, 39, 0.42);
+            color: #f7f2e9;
+
+            font-size: 9px;
+            text-align: center;
+            letter-spacing: 0.12em;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery:hover .gallery-counter {
+            opacity: 1;
+        }
+
+
+        /* DOTS */
+
+        .gallery-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 17px;
+
+            display: flex;
+            gap: 6px;
+
+            transform: translateX(-50%);
+
+            z-index: 5;
+
+            opacity: 0;
+
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery:hover .gallery-dots {
+            opacity: 1;
+        }
+
+        .gallery-dot {
+            width: 5px;
+            height: 5px;
+
+            padding: 0;
+
+            border: 0;
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.48);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .gallery-dot.active {
+            background: #ffffff;
+            transform: scale(1.25);
+        }
+
+
+        /* =====================================================
+           PROJECT INFO
+        ===================================================== */
+
+        .project-info {
+            display: flex;
             justify-content: space-between;
-
             align-items: baseline;
+            gap: 20px;
         }
 
         .project-name {
-
             font-size: 17px;
-
             font-weight: 400;
         }
 
         .project-type {
-
             margin-top: 5px;
 
             font-size: 11px;
-
             text-transform: uppercase;
-
             letter-spacing: 0.08em;
 
             color: #82786d;
         }
 
         .project-year {
-
             font-size: 11px;
-
             color: #82786d;
+            white-space: nowrap;
         }
 
 
@@ -340,79 +477,61 @@
         ===================================================== */
 
         .about {
-
             min-height: 85vh;
 
             background: rgba(45, 43, 39, 0.94);
-
             color: #f4efe6;
         }
 
         .about .section-title {
-
             border-color: rgba(240, 230, 215, 0.35);
         }
 
         .about .section-title span {
-
             color: #b7aea2;
         }
 
         .about-content {
-
             max-width: 1000px;
         }
 
         .about h2 {
-
             font-size: clamp(50px, 7vw, 105px);
-
             font-weight: 400;
-
             line-height: 0.92;
-
             letter-spacing: -0.06em;
 
             margin-bottom: 65px;
         }
 
         .about h2 span {
-
             color: #c68a6b;
         }
 
         .about-text {
-
             max-width: 600px;
 
             font-size: 16px;
-
             line-height: 1.7;
 
             color: #c9c1b7;
         }
 
         .skills {
-
             margin-top: 70px;
 
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 10px;
         }
 
         .skill {
-
             border: 1px solid rgba(240, 230, 215, 0.3);
 
             padding: 8px 14px;
 
             font-size: 10px;
-
             text-transform: uppercase;
-
             letter-spacing: 0.1em;
 
             color: #d8d0c5;
@@ -424,7 +543,6 @@
         ===================================================== */
 
         .contact {
-
             min-height: 70vh;
 
             background: rgba(245, 241, 233, 0.78);
@@ -434,38 +552,27 @@
         }
 
         .contact h2 {
-
             font-size: clamp(55px, 8vw, 125px);
-
             font-weight: 400;
-
             letter-spacing: -0.07em;
-
             line-height: 0.88;
 
             margin-bottom: 70px;
         }
 
         .contact h2 span {
-
             color: #a96f55;
         }
 
         .contact-links {
-
             display: flex;
-
             gap: 35px;
-
             flex-wrap: wrap;
         }
 
         .contact-links a {
-
             font-size: 12px;
-
             text-transform: uppercase;
-
             letter-spacing: 0.1em;
 
             border-bottom: 1px solid #3c3731;
@@ -478,9 +585,7 @@
         }
 
         .contact-links a:hover {
-
             color: #a96f55;
-
             border-color: #a96f55;
         }
 
@@ -490,19 +595,15 @@
         ===================================================== */
 
         footer {
-
             padding: 24px 5vw;
 
             border-top: 1px solid rgba(90, 70, 50, 0.35);
 
             display: flex;
-
             justify-content: space-between;
 
             font-size: 10px;
-
             text-transform: uppercase;
-
             letter-spacing: 0.08em;
 
             color: #81776c;
@@ -518,98 +619,85 @@
         @media (max-width: 700px) {
 
             body {
-
                 background-size: auto 100vh;
-
                 background-attachment: scroll;
-
                 background-position: center top;
             }
 
             header {
-
                 padding: 18px 5vw;
             }
 
             nav {
-
                 gap: 15px;
-
                 font-size: 10px;
             }
 
             .hero {
-
-                padding:
-                    130px
-                    5vw
-                    70px;
+                padding: 130px 5vw 70px;
             }
 
             .hero h1 {
-
                 font-size: 18vw;
             }
 
             .hero-bottom {
-
                 flex-direction: column;
-
                 align-items: flex-start;
-
                 gap: 30px;
             }
 
             section {
-
-                padding:
-                    85px
-                    5vw;
+                padding: 85px 5vw;
             }
 
             .projects {
-
                 grid-template-columns: 1fr;
-
                 gap: 65px;
             }
 
-            .about h2 {
+            .gallery-arrow {
+                opacity: 0.88;
+                pointer-events: auto;
 
+                width: 38px;
+                height: 38px;
+
+                background: rgba(45, 43, 39, 0.35);
+            }
+
+            .gallery-counter,
+            .gallery-dots {
+                opacity: 1;
+            }
+
+            .about h2 {
                 font-size: 17vw;
             }
 
             .contact h2 {
-
                 font-size: 18vw;
             }
 
             .contact-links {
-
                 flex-direction: column;
-
                 align-items: flex-start;
-
                 gap: 18px;
             }
 
             footer {
-
                 flex-direction: column;
-
                 gap: 8px;
             }
         }
-
     </style>
 </head>
 
 
 <body>
 
-
     <!-- =====================================================
-         NAVIGATION
+         HEADER
     ===================================================== -->
 
     <header>
@@ -619,23 +707,12 @@
         </a>
 
         <nav>
-
-            <a href="#work">
-                Work
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a href="#contact">
-                Contact
-            </a>
-
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </nav>
 
     </header>
-
 
 
     <!-- =====================================================
@@ -660,18 +737,14 @@
                 <div class="hero-bottom">
 
                     <p class="hero-description">
-
                         Architecture and civil engineering student
                         interested in design, construction, materials
                         and the relationship between architecture
                         and its environment.
-
                     </p>
 
                     <div class="scroll">
-
                         ↓ Selected work
-
                     </div>
 
                 </div>
@@ -679,7 +752,6 @@
             </div>
 
         </section>
-
 
 
         <!-- =================================================
@@ -704,28 +776,60 @@
             <div class="projects">
 
 
-                <!-- PROJECT 01 -->
+                <!-- =========================================
+                     01 — ARCHITECTURAL PROJECTS
+                ========================================== -->
 
                 <article class="project">
 
-                    <div class="project-image">
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
 
-                        <span>
-                            Project image
-                        </span>
+                        <div class="gallery-viewport">
+
+                            <div class="gallery-placeholder">
+                                Architectural project images will be added here.
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous image"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next image"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
+                        </div>
 
                     </div>
+
 
                     <div class="project-info">
 
                         <div>
 
                             <div class="project-name">
-                                Architectural Project
+                                Architectural Projects
                             </div>
 
                             <div class="project-type">
-                                Architecture · Design
+                                Architecture · Design · Models
                             </div>
 
                         </div>
@@ -739,25 +843,56 @@
                 </article>
 
 
-
-                <!-- PROJECT 02 -->
+                <!-- =========================================
+                     02 — CONSTRUCTION PROJECTS
+                ========================================== -->
 
                 <article class="project">
 
-                    <div class="project-image">
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
 
-                        <span>
-                            Project image
-                        </span>
+                        <div class="gallery-viewport">
+
+                            <div class="gallery-placeholder">
+                                Construction project images will be added here.
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous image"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next image"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
+                        </div>
 
                     </div>
+
 
                     <div class="project-info">
 
                         <div>
 
                             <div class="project-name">
-                                Construction Project
+                                Construction Projects
                             </div>
 
                             <div class="project-type">
@@ -775,25 +910,56 @@
                 </article>
 
 
-
-                <!-- PROJECT 03 -->
+                <!-- =========================================
+                     03 — FURNITURE RENOVATIONS
+                ========================================== -->
 
                 <article class="project">
 
-                    <div class="project-image">
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
 
-                        <span>
-                            Project image
-                        </span>
+                        <div class="gallery-viewport">
+
+                            <div class="gallery-placeholder">
+                                Furniture renovation images will be added here.
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous image"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next image"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
+                        </div>
 
                     </div>
+
 
                     <div class="project-info">
 
                         <div>
 
                             <div class="project-name">
-                                Furniture Renovation
+                                Furniture Renovations
                             </div>
 
                             <div class="project-type">
@@ -811,54 +977,49 @@
                 </article>
 
 
-
-                <!-- PROJECT 04 -->
+                <!-- =========================================
+                     04 — ENGINEERING PROJECT
+                ========================================== -->
 
                 <article class="project">
 
-                    <div class="project-image">
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
 
-                        <span>
-                            Project image
-                        </span>
+                        <div class="gallery-viewport">
 
-                    </div>
-
-                    <div class="project-info">
-
-                        <div>
-
-                            <div class="project-name">
-                                Architectural Studies
-                            </div>
-
-                            <div class="project-type">
-                                Architecture · Research
+                            <div class="gallery-placeholder">
+                                Engineering project images will be added here.
                             </div>
 
                         </div>
 
-                        <div class="project-year">
-                            2025
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous image"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next image"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
                         </div>
 
                     </div>
 
-                </article>
-
-
-
-                <!-- PROJECT 05 -->
-
-                <article class="project">
-
-                    <div class="project-image">
-
-                        <span>
-                            Project image
-                        </span>
-
-                    </div>
 
                     <div class="project-info">
 
@@ -883,18 +1044,49 @@
                 </article>
 
 
-
-                <!-- PROJECT 06 -->
+                <!-- =========================================
+                     05 — PERSONAL WORK
+                ========================================== -->
 
                 <article class="project">
 
-                    <div class="project-image">
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
 
-                        <span>
-                            Project image
-                        </span>
+                        <div class="gallery-viewport">
+
+                            <div class="gallery-placeholder">
+                                Personal work images will be added here.
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous image"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next image"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
+                        </div>
 
                     </div>
+
 
                     <div class="project-info">
 
@@ -919,10 +1111,71 @@
                 </article>
 
 
+                <!-- =========================================
+                     06 — PICTURES
+                ========================================== -->
+
+                <article class="project">
+
+                    <div
+                        class="gallery"
+                        data-images='[]'
+                    >
+
+                        <div class="gallery-viewport">
+
+                            <div class="gallery-placeholder">
+                                Architectural pictures will be added here.
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="gallery-arrow prev"
+                            type="button"
+                            aria-label="Previous picture"
+                        >
+                            &#8592;
+                        </button>
+
+                        <button
+                            class="gallery-arrow next"
+                            type="button"
+                            aria-label="Next picture"
+                        >
+                            &#8594;
+                        </button>
+
+                        <div class="gallery-dots"></div>
+
+                        <div class="gallery-counter">
+                            01 / 01
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <div>
+
+                            <div class="project-name">
+                                Pictures
+                            </div>
+
+                            <div class="project-type">
+                                Architecture · Travel · Photography
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
             </div>
 
         </section>
-
 
 
         <!-- =================================================
@@ -947,22 +1200,18 @@
             <div class="about-content">
 
                 <h2>
-
                     Architecture<br>
                     between <span>idea</span><br>
                     and reality.
-
                 </h2>
 
 
                 <p class="about-text">
-
                     I am an architecture and civil engineering
                     student interested in architectural design,
                     construction, materials and the relationship
                     between technical constraints and creative
                     thinking.
-
                 </p>
 
 
@@ -1007,7 +1256,6 @@
         </section>
 
 
-
         <!-- =================================================
              CONTACT
         ================================================= -->
@@ -1028,25 +1276,23 @@
 
 
             <h2>
-
                 Let's work<br>
                 <span>together.</span>
-
             </h2>
 
 
             <div class="contact-links">
 
-                <a href="mailto:yourmail@example.com">
+                <a href="mailto:amandine.bernardo06@gmail.com">
                     Email
                 </a>
 
-                <a href="#" target="_blank">
+                <a
+                    href="https://www.linkedin.com/in/amandine-bernardo-519304368/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     LinkedIn
-                </a>
-
-                <a href="#">
-                    Download CV
                 </a>
 
             </div>
@@ -1054,7 +1300,6 @@
         </section>
 
     </main>
-
 
 
     <!-- =====================================================
@@ -1073,6 +1318,345 @@
 
     </footer>
 
+
+    <!-- =====================================================
+         GALLERY JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        document.querySelectorAll(".gallery").forEach((gallery) => {
+
+            const viewport =
+                gallery.querySelector(".gallery-viewport");
+
+            const placeholder =
+                gallery.querySelector(".gallery-placeholder");
+
+            const prevButton =
+                gallery.querySelector(".gallery-arrow.prev");
+
+            const nextButton =
+                gallery.querySelector(".gallery-arrow.next");
+
+            const dotsContainer =
+                gallery.querySelector(".gallery-dots");
+
+            const counter =
+                gallery.querySelector(".gallery-counter");
+
+
+            let images = [];
+
+            try {
+                images = JSON.parse(
+                    gallery.dataset.images || "[]"
+                );
+            } catch (error) {
+                images = [];
+            }
+
+
+            let currentIndex = 0;
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+
+            /* =========================================
+               COUNTER
+            ========================================== */
+
+            function updateCounter() {
+
+                const total =
+                    images.length > 0
+                        ? images.length
+                        : 1;
+
+                counter.textContent =
+                    String(currentIndex + 1).padStart(2, "0")
+                    + " / "
+                    + String(total).padStart(2, "0");
+            }
+
+
+            /* =========================================
+               SHOW IMAGE
+            ========================================== */
+
+            function showImage(index, direction = 1) {
+
+                if (images.length === 0) {
+                    updateCounter();
+                    return;
+                }
+
+
+                currentIndex =
+                    (index + images.length)
+                    % images.length;
+
+
+                const existingImages =
+                    viewport.querySelectorAll(
+                        ".gallery-image"
+                    );
+
+
+                existingImages.forEach((img) => {
+                    img.classList.remove("is-visible");
+                });
+
+
+                const activeImage =
+                    existingImages[currentIndex];
+
+
+                if (activeImage) {
+
+                    activeImage.classList.add(
+                        "is-visible"
+                    );
+
+
+                    activeImage.style.transform =
+                        `translateX(${direction * 2.5}%) scale(1)`;
+
+
+                    requestAnimationFrame(() => {
+                        activeImage.style.transform = "";
+                    });
+
+                }
+
+
+                const dots =
+                    dotsContainer.querySelectorAll(
+                        ".gallery-dot"
+                    );
+
+
+                dots.forEach((dot, dotIndex) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        dotIndex === currentIndex
+                    );
+
+                });
+
+
+                updateCounter();
+            }
+
+
+            /* =========================================
+               NEXT / PREVIOUS
+            ========================================== */
+
+            function changeImage(direction) {
+
+                if (images.length <= 1) {
+                    return;
+                }
+
+                showImage(
+                    currentIndex + direction,
+                    direction > 0 ? 1 : -1
+                );
+            }
+
+
+            /* =========================================
+               CREATE IMAGES
+            ========================================== */
+
+            if (images.length > 0) {
+
+                placeholder.style.display = "none";
+
+
+                images.forEach((src, index) => {
+
+                    const img =
+                        document.createElement("img");
+
+
+                    img.src = src;
+
+                    img.alt = "";
+
+                    img.className =
+                        "gallery-image";
+
+                    img.loading =
+                        index === 0
+                            ? "eager"
+                            : "lazy";
+
+
+                    viewport.appendChild(img);
+
+
+                    const dot =
+                        document.createElement("button");
+
+
+                    dot.type = "button";
+
+                    dot.className =
+                        "gallery-dot";
+
+                    dot.setAttribute(
+                        "aria-label",
+                        `Go to image ${index + 1}`
+                    );
+
+
+                    dot.addEventListener(
+                        "click",
+                        () => {
+
+                            showImage(
+                                index,
+                                index > currentIndex
+                                    ? 1
+                                    : -1
+                            );
+
+                        }
+                    );
+
+
+                    dotsContainer.appendChild(dot);
+
+                });
+
+
+                showImage(0, 1);
+
+            } else {
+
+                prevButton.style.display = "none";
+
+                nextButton.style.display = "none";
+
+                dotsContainer.style.display = "none";
+
+            }
+
+
+            /* =========================================
+               ARROWS
+            ========================================== */
+
+            prevButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+                    changeImage(-1);
+
+                }
+            );
+
+
+            nextButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+                    changeImage(1);
+
+                }
+            );
+
+
+            /* =========================================
+               MOBILE SWIPE
+            ========================================== */
+
+            viewport.addEventListener(
+                "touchstart",
+                (event) => {
+
+                    if (images.length <= 1) {
+                        return;
+                    }
+
+                    touchStartX =
+                        event.changedTouches[0].screenX;
+
+                },
+                { passive: true }
+            );
+
+
+            viewport.addEventListener(
+                "touchend",
+                (event) => {
+
+                    if (images.length <= 1) {
+                        return;
+                    }
+
+
+                    touchEndX =
+                        event.changedTouches[0].screenX;
+
+
+                    const distance =
+                        touchEndX - touchStartX;
+
+
+                    if (Math.abs(distance) < 45) {
+                        return;
+                    }
+
+
+                    if (distance < 0) {
+                        changeImage(1);
+                    } else {
+                        changeImage(-1);
+                    }
+
+                },
+                { passive: true }
+            );
+
+
+            /* =========================================
+               KEYBOARD
+            ========================================== */
+
+            viewport.addEventListener(
+                "keydown",
+                (event) => {
+
+                    if (event.key === "ArrowRight") {
+
+                        event.preventDefault();
+
+                        changeImage(1);
+                    }
+
+
+                    if (event.key === "ArrowLeft") {
+
+                        event.preventDefault();
+
+                        changeImage(-1);
+                    }
+
+                }
+            );
+
+        });
+
+    </script>
 
 </body>
 
