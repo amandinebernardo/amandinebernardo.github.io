@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Amandine Bernardo — Architecture & Engineering</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f3ee;
+            color: #1c1c1c;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* NAVIGATION */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(245, 243, 238, 0.92);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+            font-size: 13px;
+        }
+
+        nav a {
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.5;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            padding: 160px 5vw 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .hero-small {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(60px, 10vw, 150px);
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -0.06em;
+            max-width: 1100px;
+        }
+
+        .hero-bottom {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            max-width: 700px;
+        }
+
+        .hero-description {
+            max-width: 400px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .scroll {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        /* WORK */
+
+        section {
+            padding: 120px 5vw;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 70px;
+            border-top: 1px solid #aaa;
+            padding-top: 15px;
+        }
+
+        .section-title h2 {
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 80px 35px;
+        }
+
+        .project {
+            cursor: pointer;
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #ddd9d0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 18px;
+            transition: transform 0.5s ease;
+        }
+
+        .project:hover .project-image {
+            transform: scale(0.98);
+        }
+
+        .project-image span {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #777;
+        }
+
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .project-name {
+            font-size: 18px;
+        }
+
+        .project-year {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .project-type {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: #1c1c1c;
+            color: #f5f3ee;
+            min-height: 70vh;
+        }
+
+        .about-content {
+            max-width: 900px;
+        }
+
+        .about h2 {
+            font-size: clamp(45px, 7vw, 100px);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 60px;
+        }
+
+        .about-text {
+            max-width: 550px;
+            font-size: 17px;
+            color: #c5c2bb;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            min-height: 60vh;
+        }
+
+        .contact h2 {
+            font-size: clamp(50px, 8vw, 120px);
+            font-weight: 400;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 60px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 35px;
+            font-size: 14px;
+        }
+
+        .contact-links a {
+            border-bottom: 1px solid #1c1c1c;
+            padding-bottom: 4px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 25px 5vw;
+            border-top: 1px solid #aaa;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #777;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 20px 5vw;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .hero {
+                padding-top: 130px;
+            }
+
+            .hero h1 {
+                font-size: 18vw;
+            }
+
+            .hero-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+            }
+
+            section {
+                padding: 80px 5vw;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .about h2 {
+                font-size: 17vw;
+            }
+
+            .contact h2 {
+                font-size: 18vw;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header>
+        <a href="#" class="logo">AMANDINE BERNARDO</a>
+
+        <nav>
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-small">
+                Architecture · Engineering · Design
+            </div>
+
+            <h1>
+                Amandine<br>
+                Bernardo
+            </h1>
+
+            <div class="hero-bottom">
+
+                <p class="hero-description">
+                    Architecture and civil engineering student interested
+                    in design, construction, materials and the relationship
+                    between architecture and its environment.
+                </p>
+
+                <div class="scroll">
+                    ↓ Selected work
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+
+        <section id="work">
+
+            <div class="section-title">
+                <h2>Selected Work</h2>
+                <span>01 — 05</span>
+            </div>
+
+            <div class="projects">
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Architectural Project
+                            </div>
+                            <div class="project-type">
+                                Architecture · Design
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2026
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Construction Project
+                            </div>
+                            <div class="project-type">
+                                Construction · Site
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2026
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Furniture Renovation
+                            </div>
+                            <div class="project-type">
+                                Furniture · Craft · Marquetry
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2026
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Architectural Studies
+                            </div>
+                            <div class="project-type">
+                                Architecture · Research
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2025
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Engineering Project
+                            </div>
+                            <div class="project-type">
+                                Engineering · Design
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2025
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project">
+                    <div class="project-image">
+                        <span>Project image</span>
+                    </div>
+
+                    <div class="project-info">
+                        <div>
+                            <div class="project-name">
+                                Personal Work
+                            </div>
+                            <div class="project-type">
+                                Experimental · Design
+                            </div>
+                        </div>
+
+                        <div class="project-year">
+                            2025
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+
+        <section id="about" class="about">
+
+            <div class="section-title">
+                <h2>About</h2>
+                <span>02</span>
+            </div>
+
+            <div class="about-content">
+
+                <h2>
+                    Architecture<br>
+                    between idea<br>
+                    and reality.
+                </h2>
+
+                <p class="about-text">
+                    I am an architecture and civil engineering student
+                    interested in architectural design, construction,
+                    materials and the relationship between technical
+                    constraints and creative thinking.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section id="contact" class="contact">
+
+            <div class="section-title">
+                <h2>Contact</h2>
+                <span>03</span>
+            </div>
+
+            <h2>
+                Let's work<br>
+                together.
+            </h2>
+
+            <div class="contact-links">
+
+                <a href="mailto:yourmail@example.com">
+                    Email
+                </a>
+
+                <a href="#" target="_blank">
+                    LinkedIn
+                </a>
+
+                <a href="#">
+                    Download CV
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        <span>© 2026 Amandine Bernardo</span>
+        <span>Architecture · Engineering · Design</span>
+    </footer>
+
+</body>
+</html>
