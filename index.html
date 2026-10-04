@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Amandine Bernardo — Architecture & Engineering</title>
+    <title>Amandine Bernardo — Architecture & Design</title>
 
     <style>
+
+        /* =====================================================
+           BASE
+        ===================================================== */
+
         * {
             margin: 0;
             padding: 0;
@@ -19,9 +25,17 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f3ee;
-            color: #1c1c1c;
+            color: #292621;
             line-height: 1.5;
+
+            background-color: #f5f1e9;
+            background-image: url("fondsite.png");
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+
+            overflow-x: hidden;
         }
 
         a {
@@ -29,321 +43,637 @@
             text-decoration: none;
         }
 
-        /* NAVIGATION */
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
 
         header {
             position: fixed;
             top: 0;
             left: 0;
+
             width: 100%;
-            padding: 25px 5vw;
+
+            padding: 24px 5vw;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: rgba(245, 243, 238, 0.92);
-            backdrop-filter: blur(10px);
+
+            z-index: 1000;
+
+            background: rgba(245, 241, 233, 0.68);
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            border-bottom: 1px solid rgba(120, 95, 70, 0.18);
         }
 
         .logo {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.08em;
         }
 
         nav {
             display: flex;
             gap: 35px;
-            font-size: 13px;
+
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         nav a {
-            transition: opacity 0.3s;
+            position: relative;
+            transition: opacity 0.3s ease;
         }
 
         nav a:hover {
             opacity: 0.5;
         }
 
-        /* HERO */
+
+        /* =====================================================
+           HERO
+        ===================================================== */
 
         .hero {
+
             min-height: 100vh;
-            padding: 160px 5vw 80px;
+
+            padding: 150px 5vw 80px;
+
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
         }
 
         .hero-small {
-            font-size: 13px;
+
+            margin-bottom: 30px;
+
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 25px;
+            letter-spacing: 0.2em;
+
+            color: #776d60;
         }
 
         .hero h1 {
-            font-size: clamp(60px, 10vw, 150px);
+
+            font-size: clamp(65px, 10vw, 150px);
+
             font-weight: 400;
-            line-height: 0.9;
-            letter-spacing: -0.06em;
-            max-width: 1100px;
+
+            line-height: 0.86;
+
+            letter-spacing: -0.07em;
+
+            color: #28231e;
+        }
+
+        .hero h1 span {
+            color: #a96f55;
         }
 
         .hero-bottom {
-            margin-top: 60px;
+
+            margin-top: 55px;
+
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            max-width: 700px;
+
+            max-width: 850px;
         }
 
         .hero-description {
-            max-width: 400px;
+
+            max-width: 430px;
+
             font-size: 15px;
-            color: #555;
+
+            color: #5d564d;
         }
 
         .scroll {
-            font-size: 12px;
+
+            font-size: 11px;
+
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+
+            letter-spacing: 0.15em;
+
+            color: #6d655b;
         }
 
-        /* WORK */
+
+        /* =====================================================
+           GENERAL SECTIONS
+        ===================================================== */
 
         section {
             padding: 120px 5vw;
         }
 
         .section-title {
+
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 70px;
-            border-top: 1px solid #aaa;
-            padding-top: 15px;
+
+            margin-bottom: 65px;
+
+            border-top: 1px solid rgba(90, 70, 50, 0.45);
+
+            padding-top: 14px;
         }
 
         .section-title h2 {
-            font-size: 14px;
-            font-weight: 500;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+
+            letter-spacing: 0.15em;
         }
 
         .section-title span {
-            font-size: 12px;
-            color: #666;
+
+            font-size: 11px;
+
+            color: #776e64;
+        }
+
+
+        /* =====================================================
+           WORK
+        ===================================================== */
+
+        #work {
+
+            background: rgba(245, 241, 233, 0.76);
+
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
         }
 
         .projects {
+
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
-            gap: 80px 35px;
+
+            gap: 90px 35px;
         }
 
         .project {
+
             cursor: pointer;
         }
 
         .project-image {
+
             width: 100%;
+
             aspect-ratio: 4 / 3;
-            background: #ddd9d0;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(170, 145, 110, 0.15),
+                    rgba(255, 255, 255, 0.35)
+                );
+
+            border: 1px solid rgba(110, 90, 70, 0.22);
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
             overflow: hidden;
+
             margin-bottom: 18px;
-            transition: transform 0.5s ease;
+
+            transition:
+                transform 0.5s ease,
+                background 0.5s ease;
         }
 
         .project:hover .project-image {
-            transform: scale(0.98);
+
+            transform: scale(0.985);
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(170, 145, 110, 0.25),
+                    rgba(255, 255, 255, 0.45)
+                );
         }
 
         .project-image span {
-            font-size: 12px;
+
+            font-size: 10px;
+
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #777;
+
+            letter-spacing: 0.15em;
+
+            color: #8a8074;
         }
 
         .project-info {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: baseline;
         }
 
         .project-name {
-            font-size: 18px;
-        }
 
-        .project-year {
-            font-size: 12px;
-            color: #777;
+            font-size: 17px;
+
+            font-weight: 400;
         }
 
         .project-type {
+
             margin-top: 5px;
-            font-size: 12px;
-            color: #777;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.08em;
+
+            color: #82786d;
         }
 
-        /* ABOUT */
+        .project-year {
+
+            font-size: 11px;
+
+            color: #82786d;
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
 
         .about {
-            background: #1c1c1c;
-            color: #f5f3ee;
-            min-height: 70vh;
+
+            min-height: 85vh;
+
+            background: rgba(45, 43, 39, 0.94);
+
+            color: #f4efe6;
+        }
+
+        .about .section-title {
+
+            border-color: rgba(240, 230, 215, 0.35);
+        }
+
+        .about .section-title span {
+
+            color: #b7aea2;
         }
 
         .about-content {
-            max-width: 900px;
+
+            max-width: 1000px;
         }
 
         .about h2 {
-            font-size: clamp(45px, 7vw, 100px);
+
+            font-size: clamp(50px, 7vw, 105px);
+
             font-weight: 400;
-            line-height: 0.95;
-            letter-spacing: -0.05em;
-            margin-bottom: 60px;
+
+            line-height: 0.92;
+
+            letter-spacing: -0.06em;
+
+            margin-bottom: 65px;
+        }
+
+        .about h2 span {
+
+            color: #c68a6b;
         }
 
         .about-text {
-            max-width: 550px;
-            font-size: 17px;
-            color: #c5c2bb;
+
+            max-width: 600px;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            color: #c9c1b7;
         }
 
-        /* CONTACT */
+        .skills {
+
+            margin-top: 70px;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .skill {
+
+            border: 1px solid rgba(240, 230, 215, 0.3);
+
+            padding: 8px 14px;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.1em;
+
+            color: #d8d0c5;
+        }
+
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
 
         .contact {
-            min-height: 60vh;
+
+            min-height: 70vh;
+
+            background: rgba(245, 241, 233, 0.78);
+
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
         }
 
         .contact h2 {
-            font-size: clamp(50px, 8vw, 120px);
+
+            font-size: clamp(55px, 8vw, 125px);
+
             font-weight: 400;
-            letter-spacing: -0.05em;
-            line-height: 0.9;
-            margin-bottom: 60px;
+
+            letter-spacing: -0.07em;
+
+            line-height: 0.88;
+
+            margin-bottom: 70px;
+        }
+
+        .contact h2 span {
+
+            color: #a96f55;
         }
 
         .contact-links {
+
             display: flex;
+
             gap: 35px;
-            font-size: 14px;
+
+            flex-wrap: wrap;
         }
 
         .contact-links a {
-            border-bottom: 1px solid #1c1c1c;
-            padding-bottom: 4px;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.1em;
+
+            border-bottom: 1px solid #3c3731;
+
+            padding-bottom: 5px;
+
+            transition:
+                color 0.3s ease,
+                border-color 0.3s ease;
         }
 
-        /* FOOTER */
+        .contact-links a:hover {
+
+            color: #a96f55;
+
+            border-color: #a96f55;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
 
         footer {
-            padding: 25px 5vw;
-            border-top: 1px solid #aaa;
+
+            padding: 24px 5vw;
+
+            border-top: 1px solid rgba(90, 70, 50, 0.35);
+
             display: flex;
+
             justify-content: space-between;
-            font-size: 11px;
-            color: #777;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.08em;
+
+            color: #81776c;
+
+            background: rgba(245, 241, 233, 0.82);
         }
 
-        /* MOBILE */
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
         @media (max-width: 700px) {
 
+            body {
+
+                background-size: auto 100vh;
+
+                background-attachment: scroll;
+
+                background-position: center top;
+            }
+
             header {
-                padding: 20px 5vw;
+
+                padding: 18px 5vw;
             }
 
             nav {
+
                 gap: 15px;
+
+                font-size: 10px;
             }
 
             .hero {
-                padding-top: 130px;
+
+                padding:
+                    130px
+                    5vw
+                    70px;
             }
 
             .hero h1 {
+
                 font-size: 18vw;
             }
 
             .hero-bottom {
+
                 flex-direction: column;
+
                 align-items: flex-start;
+
                 gap: 30px;
             }
 
             section {
-                padding: 80px 5vw;
+
+                padding:
+                    85px
+                    5vw;
             }
 
             .projects {
+
                 grid-template-columns: 1fr;
-                gap: 60px;
+
+                gap: 65px;
             }
 
             .about h2 {
+
                 font-size: 17vw;
             }
 
             .contact h2 {
+
                 font-size: 18vw;
             }
 
             .contact-links {
+
                 flex-direction: column;
-                gap: 15px;
+
+                align-items: flex-start;
+
+                gap: 18px;
+            }
+
+            footer {
+
+                flex-direction: column;
+
+                gap: 8px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- NAVIGATION -->
+
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
 
     <header>
-        <a href="#" class="logo">AMANDINE BERNARDO</a>
+
+        <a href="#" class="logo">
+            AMANDINE BERNARDO
+        </a>
 
         <nav>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+
+            <a href="#work">
+                Work
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
         </nav>
+
     </header>
 
 
-    <!-- HERO -->
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
 
     <main>
 
         <section class="hero">
 
-            <div class="hero-small">
-                Architecture · Engineering · Design
-            </div>
+            <div class="hero-content">
 
-            <h1>
-                Amandine<br>
-                Bernardo
-            </h1>
+                <div class="hero-small">
+                    Architecture · Engineering · Design
+                </div>
 
-            <div class="hero-bottom">
+                <h1>
+                    Amandine<br>
+                    <span>Bernardo</span>
+                </h1>
 
-                <p class="hero-description">
-                    Architecture and civil engineering student interested
-                    in design, construction, materials and the relationship
-                    between architecture and its environment.
-                </p>
+                <div class="hero-bottom">
 
-                <div class="scroll">
-                    ↓ Selected work
+                    <p class="hero-description">
+
+                        Architecture and civil engineering student
+                        interested in design, construction, materials
+                        and the relationship between architecture
+                        and its environment.
+
+                    </p>
+
+                    <div class="scroll">
+
+                        ↓ Selected work
+
+                    </div>
+
                 </div>
 
             </div>
@@ -351,195 +681,359 @@
         </section>
 
 
-        <!-- PROJECTS -->
+
+        <!-- =================================================
+             WORK
+        ================================================= -->
 
         <section id="work">
 
             <div class="section-title">
-                <h2>Selected Work</h2>
-                <span>01 — 05</span>
+
+                <h2>
+                    Selected Work
+                </h2>
+
+                <span>
+                    01 — 06
+                </span>
+
             </div>
+
 
             <div class="projects">
 
+
+                <!-- PROJECT 01 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Architectural Project
                             </div>
+
                             <div class="project-type">
                                 Architecture · Design
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2026
                         </div>
+
                     </div>
+
                 </article>
 
 
+
+                <!-- PROJECT 02 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Construction Project
                             </div>
+
                             <div class="project-type">
                                 Construction · Site
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2026
                         </div>
+
                     </div>
+
                 </article>
 
 
+
+                <!-- PROJECT 03 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Furniture Renovation
                             </div>
+
                             <div class="project-type">
                                 Furniture · Craft · Marquetry
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2026
                         </div>
+
                     </div>
+
                 </article>
 
 
+
+                <!-- PROJECT 04 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Architectural Studies
                             </div>
+
                             <div class="project-type">
                                 Architecture · Research
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2025
                         </div>
+
                     </div>
+
                 </article>
 
 
+
+                <!-- PROJECT 05 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Engineering Project
                             </div>
+
                             <div class="project-type">
                                 Engineering · Design
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2025
                         </div>
+
                     </div>
+
                 </article>
 
 
+
+                <!-- PROJECT 06 -->
+
                 <article class="project">
+
                     <div class="project-image">
-                        <span>Project image</span>
+
+                        <span>
+                            Project image
+                        </span>
+
                     </div>
 
                     <div class="project-info">
+
                         <div>
+
                             <div class="project-name">
                                 Personal Work
                             </div>
+
                             <div class="project-type">
                                 Experimental · Design
                             </div>
+
                         </div>
 
                         <div class="project-year">
                             2025
                         </div>
+
                     </div>
+
                 </article>
+
 
             </div>
 
         </section>
 
 
-        <!-- ABOUT -->
+
+        <!-- =================================================
+             ABOUT
+        ================================================= -->
 
         <section id="about" class="about">
 
             <div class="section-title">
-                <h2>About</h2>
-                <span>02</span>
+
+                <h2>
+                    About
+                </h2>
+
+                <span>
+                    02
+                </span>
+
             </div>
+
 
             <div class="about-content">
 
                 <h2>
+
                     Architecture<br>
-                    between idea<br>
+                    between <span>idea</span><br>
                     and reality.
+
                 </h2>
 
+
                 <p class="about-text">
-                    I am an architecture and civil engineering student
-                    interested in architectural design, construction,
-                    materials and the relationship between technical
-                    constraints and creative thinking.
+
+                    I am an architecture and civil engineering
+                    student interested in architectural design,
+                    construction, materials and the relationship
+                    between technical constraints and creative
+                    thinking.
+
                 </p>
+
+
+                <div class="skills">
+
+                    <div class="skill">
+                        Architecture
+                    </div>
+
+                    <div class="skill">
+                        Civil Engineering
+                    </div>
+
+                    <div class="skill">
+                        AutoCAD
+                    </div>
+
+                    <div class="skill">
+                        SketchUp
+                    </div>
+
+                    <div class="skill">
+                        Revit
+                    </div>
+
+                    <div class="skill">
+                        Excel
+                    </div>
+
+                    <div class="skill">
+                        Design
+                    </div>
+
+                    <div class="skill">
+                        Construction
+                    </div>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- CONTACT -->
+
+        <!-- =================================================
+             CONTACT
+        ================================================= -->
 
         <section id="contact" class="contact">
 
             <div class="section-title">
-                <h2>Contact</h2>
-                <span>03</span>
+
+                <h2>
+                    Contact
+                </h2>
+
+                <span>
+                    03
+                </span>
+
             </div>
 
+
             <h2>
+
                 Let's work<br>
-                together.
+                <span>together.</span>
+
             </h2>
+
 
             <div class="contact-links">
 
@@ -562,12 +1056,24 @@
     </main>
 
 
-    <!-- FOOTER -->
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
 
     <footer>
-        <span>© 2026 Amandine Bernardo</span>
-        <span>Architecture · Engineering · Design</span>
+
+        <span>
+            © 2026 Amandine Bernardo
+        </span>
+
+        <span>
+            Architecture · Engineering · Design
+        </span>
+
     </footer>
 
+
 </body>
+
 </html>
